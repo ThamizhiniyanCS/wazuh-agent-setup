@@ -1,6 +1,12 @@
 $ManagerIP = "10.9.108.141"
 $BaseURL = "https://raw.githubusercontent.com/ThamizhiniyanCS/wazuh-agent-setup/refs/heads/main"
 
+# Check for Administrator privileges
+if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+    Display-Message "This script requires Administrator privileges. Please run as Administrator."
+    exit
+}
+
 # Setting up Wazuh Agent
 Invoke-WebRequest -Uri https://packages.wazuh.com/4.x/windows/wazuh-agent-4.10.1-1.msi -OutFile $env:tmp\wazuh-agent; msiexec.exe /i $env:tmp\wazuh-agent /q WAZUH_MANAGER=$ManagerIP WAZUH_AGENT_GROUP='windows_lab' 
 
