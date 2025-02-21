@@ -1,5 +1,5 @@
 $ManagerIP = "10.9.108.141"
-$ip = "10.9.44.155"
+$BaseURL = "https://raw.githubusercontent.com/ThamizhiniyanCS/wazuh-agent-setup/refs/heads/main"
 
 # Setting up Wazuh Agent
 Invoke-WebRequest -Uri https://packages.wazuh.com/4.x/windows/wazuh-agent-4.10.1-1.msi -OutFile $env:tmp\wazuh-agent; msiexec.exe /i $env:tmp\wazuh-agent /q WAZUH_MANAGER=$ManagerIP WAZUH_AGENT_GROUP='windows_lab' 
@@ -50,16 +50,16 @@ function Download-And-Extract {
 }
 
 # Setting up Yara
-Download-And-Extract -url "http://$ip`:8000/bin.zip" -downloadPath "$env:TEMP\bin.zip" -extractPath "C:\Program Files (x86)\ossec-agent\active-response\bin"
+Download-And-Extract -url "$BaseURL/bin.zip" -downloadPath "$env:TEMP\bin.zip" -extractPath "C:\Program Files (x86)\ossec-agent\active-response\bin"
 Write-Output "[+] Successfully setup Yara!"
 
 # Setting up Sysmon
-Download-And-Extract -url "http://$ip`:8000/Sysmon.zip" -downloadPath "$env:TEMP\Sysmon.zip" -extractPath "C:\"
+Download-And-Extract -url "$BaseURL/Sysmon.zip" -downloadPath "$env:TEMP\Sysmon.zip" -extractPath "C:\"
 C:\Sysmon\Sysmon64.exe -accecptula -i C:\Sysmon\sysmonconfig.xml
 Write-Output "[+] Successfully setup Sysmon!"
 
 # Setting up Suricata
-Download-And-Extract -url "http://$ip`:8000/Suricata.zip" -downloadPath "$env:TEMP\Suricata.zip" -extractPath "C:\Program Files\"
+Download-And-Extract -url "$BaseURL/Suricata.zip" -downloadPath "$env:TEMP\Suricata.zip" -extractPath "C:\Program Files\"
 Write-Output "[+] Successfully setup Suricata!"
 
 Start-Service -Name "WazuhSvc"

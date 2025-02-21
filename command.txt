@@ -1,1 +1,1 @@
-Invoke-WebRequest -Uri "http://10.9.44.155:8000/script.ps1" -OutFile "$env:TEMP\script.ps1"; Start-Process powershell -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$env:TEMP\script.ps1`"" -Verb RunAs
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/ThamizhiniyanCS/wazuh-agent-setup/refs/heads/main/script.ps1" -OutFile "$env:TEMP\script.ps1"; Start-Process powershell -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$env:TEMP\script.ps1`"" -Verb RunAs
